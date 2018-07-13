@@ -2,7 +2,8 @@ require('dotenv').config();
 var keys = require('./keys.js');
 var request = require('request');
 var fs = require('fs');
-// var client = new Twitter(keys.twitter);
+var Twitter = require('twitter');
+var client = new Twitter(keys.twitter);
 var Spotify = require('node-spotify-api'); 
 var spotify = new Spotify(keys.spotify);
 var omdb_key = keys.omdb.omdb;
@@ -12,6 +13,7 @@ var action = process.argv[2];
 function liriSwitch(a) {
     switch (a) {
         case 'my-tweets':
+            tweet();
             break;
         case 'spotify-this-song':
             song(process.argv[3]);
@@ -25,6 +27,18 @@ function liriSwitch(a) {
         default:
             break;
     }
+}
+
+// function that calls twitter
+function tweet() {
+    var params = {screen_name: 'mccaffertycr'};
+    client.get('statuses/user_timeline', params, function(error, tweets, response) {
+        if (!error) {
+            for (var i = 0; i < tweets.length; i++) {
+                console.log(tweets[i].text, tweets[i].created_at);
+            }
+        }
+    });
 }
 
 // function that makes a spotify request
