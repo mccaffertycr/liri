@@ -3,20 +3,20 @@ var keys = require('./keys.js');
 var request = require('request');
 var fs = require('fs');
 var Twitter = require('twitter');
-var client = new Twitter(keys.twitter);
 var Spotify = require('node-spotify-api'); 
+var client = new Twitter(keys.twitter);
 var spotify = new Spotify(keys.spotify);
-var omdb_key = keys.omdb.omdb;
+var omdb_key = keys.omdb.key;
 var action = process.argv[2];
 
 // function for the switch statement that is the main logic of the program
-function liriSwitch(a) {
+function liriSwitch(a, b) {
     switch (a) {
         case 'my-tweets':
             tweet();
             break;
         case 'spotify-this-song':
-            song(process.argv[3]);
+            song(b);
             break;
         case 'movie-this':
             movie();
@@ -29,7 +29,7 @@ function liriSwitch(a) {
     }
 }
 
-// function that calls twitter
+// function gets my last tweets (just made account don't even have 20)
 function tweet() {
     var params = {screen_name: 'mccaffertycr'};
     client.get('statuses/user_timeline', params, function(error, tweets, response) {
@@ -48,15 +48,22 @@ function song(s) {
     } else {
         var songName = 'the sign';
     }
-    spotify.search({ type: 'track', query: songName, limit: 1 }, function(err, data) {
+    spotify.search({ type: 'track', query: songName, limit: 6 }, function(err, data) {
         if (err) {
             return console.log('error: ' + err);
         }
+        // log data about the song passed as an argument or 'The Sign' as default
+        if (songName === s) {
             console.log('artist: ' + data.tracks.items[0].artists[0].name); 
             console.log('song: ' + data.tracks.items[0].name);
             console.log('listen: ' + data.tracks.items[0].external_urls.spotify);
             console.log('album: ' + data.tracks.items[0].album.name);
-            
+        } else {
+            console.log('artist: ' + data.tracks.items[5].artists[0].name); 
+            console.log('song: ' + data.tracks.items[5].name);
+            console.log('listen: ' + data.tracks.items[5].external_urls.spotify);
+            console.log('album: ' + data.tracks.items[5].album.name);
+        }
     });
 }
 
@@ -99,9 +106,9 @@ function random() {
         
         action = readArr[0];
 
-        song(readArr[1]);
+        liriSwitch(action, readArr[1]);
     });
 }
 
-// run the liriswitch function when the rest of the file loads
-liriSwitch(action);
+// run the liriswitch function
+liriSwitch(action, process.argv[3]);
