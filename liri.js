@@ -12,7 +12,7 @@ var action = process.argv[2];
 // function for the switch statement that is the main logic of the program
 function liriSwitch(a, b) {
     switch (a) {
-        case 'my-tweets':
+        case 'this-user-tweets':
             tweet();
             break;
         case 'spotify-this-song':
@@ -29,13 +29,14 @@ function liriSwitch(a, b) {
     }
 }
 
-// function gets my last tweets (just made account don't even have 20)
+// pass twitter username as an argument to get that users last 20 tweets
 function tweet() {
-    var params = {screen_name: 'mccaffertycr'};
+    var tweeter = process.argv[3];
+    var params = {screen_name: tweeter};
     client.get('statuses/user_timeline', params, function(error, tweets, response) {
         if (!error) {
-            for (var i = 0; i < tweets.length; i++) {
-                console.log(tweets[i].text, tweets[i].created_at);
+            for (var i = 0; i < 20; i++) {
+                console.log(tweets[i].text, tweets[i].created_at + '\n');
             }
         }
     });
@@ -56,13 +57,13 @@ function song(s) {
         if (songName === s) {
             console.log('artist: ' + data.tracks.items[0].artists[0].name); 
             console.log('song: ' + data.tracks.items[0].name);
-            console.log('listen: ' + data.tracks.items[0].external_urls.spotify);
             console.log('album: ' + data.tracks.items[0].album.name);
+            console.log('listen: ' + data.tracks.items[0].external_urls.spotify);
         } else {
             console.log('artist: ' + data.tracks.items[5].artists[0].name); 
             console.log('song: ' + data.tracks.items[5].name);
-            console.log('listen: ' + data.tracks.items[5].external_urls.spotify);
             console.log('album: ' + data.tracks.items[5].album.name);
+            console.log('listen: ' + data.tracks.items[5].external_urls.spotify);
         }
     });
 }
