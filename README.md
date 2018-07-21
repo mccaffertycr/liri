@@ -8,7 +8,7 @@ Week 10 homework assignment - LIRI is like iPhone's SIRI. However, while SIRI is
 1. this-user-tweets
     * pass [node liri.js this-user-tweets username] to print that user's last 20 tweets
 
-    ![tweets example](liri_tweets.jpg)
+    ![tweets example](https://raw.githubusercontent.com/mccaffertycr/liri/master/liri_tweets.jpg)
 
 2. movie-this
     * pass [node liri.js movie-this "movie title"] to print info about the movie
