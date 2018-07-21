@@ -21,6 +21,6 @@ Week 10 homework assignment - LIRI is like iPhone's SIRI. However, while SIRI is
     ![spotify example](https://raw.githubusercontent.com/mccaffertycr/liri/master/liri_spotify.JPG)
 
 4. do-what-it-says
-    * pass [node liri.js do-what-it-says] to read the text file in the project and do-what-it-says (spoiler it just does a spotify-this-song search for 'I Want it That Way' by the Backstreet Boys)
+    * pass [node liri.js do-what-it-says] to read the text file in the project and do-what-it-says (the random.txt file is set up right now to spotify-this-song for 'I Want it That Way' by the Backstreet Boys)
 
     ![dowhatitsays example](https://raw.githubusercontent.com/mccaffertycr/liri/master/liri_dowhatitsays.JPG))
