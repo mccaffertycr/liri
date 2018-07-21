@@ -81,15 +81,16 @@ function movie() {
     request(queryUrl, function(error, response, body) {
         // If the request is successful 
         if (!error && response.statusCode === 200) {
+            var data = JSON.parse(body);
             // Then log info about the movie
-            console.log('movie: ' + JSON.parse(body).Title);
-            console.log('year released: ' + JSON.parse(body).Year);
-            console.log('imdb rating: ' + JSON.parse(body).Ratings[0].Value);
-            console.log('rt rating: ' + JSON.parse(body).Ratings[1].Value);
-            console.log('country: ' + JSON.parse(body).Country);
-            console.log('language: ' + JSON.parse(body).Language);
-            console.log('plot: ' + JSON.parse(body).Plot);
-            console.log('actors: ' + JSON.parse(body).Actors);
+            console.log('movie: ' + data.Title);
+            console.log('year released: ' + data.Year);
+            console.log('imdb rating: ' + data.Ratings[0].Value);
+            console.log('rt rating: ' + data.Ratings[1].Value);
+            console.log('country: ' + data.Country);
+            console.log('language: ' + data.Language);
+            console.log('plot: ' + data.Plot);
+            console.log('actors: ' + data.Actors);
         } else {
             return console.log('error: ' + error);
         }
